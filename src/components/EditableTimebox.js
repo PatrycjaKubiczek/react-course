@@ -7,6 +7,9 @@ class EditableTimebox extends React.Component {
     totalTimeInMinutes: 15,
     isEditable: true,
   };
+  componentWillUnmount(){
+    this.stopTimer()
+  }
   handleTitleChange = (event) => {
     this.setState({ title: event.target.value });
   };
@@ -23,22 +26,26 @@ class EditableTimebox extends React.Component {
     const { title, totalTimeInMinutes, isEditable } = this.state;
     return (
       <>
-      <hr />
+        <hr />
         <h2>Obecne zadanie:</h2>
-        <TimeboxEditor
-          title={title}
-          totalTimeInMinutes={totalTimeInMinutes}
-          isEditable={isEditable}
-          onTitleChange={this.handleTitleChange}
-          onTotalTimeInInputOnChange={this.handleTotalTimeInMinutesChange}
-          onConfirm={this.handleConfirm}
-        />
-        <CurrentTimebox
-          title={title}
-          totalTimeInMinutes={totalTimeInMinutes}
-          isEditable={isEditable}
-          onEdit={this.handleEdit}
-        />
+
+        {isEditable ? (
+          <TimeboxEditor
+            title={title}
+            totalTimeInMinutes={totalTimeInMinutes}
+            isEditable={isEditable}
+            onTitleChange={this.handleTitleChange}
+            onTotalTimeInInputOnChange={this.handleTotalTimeInMinutesChange}
+            onConfirm={this.handleConfirm}
+          />
+        ) : (
+          <CurrentTimebox
+            title={title}
+            totalTimeInMinutes={totalTimeInMinutes}
+            isEditable={isEditable}
+            onEdit={this.handleEdit}
+          />
+        )}
       </>
     );
   }

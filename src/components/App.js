@@ -1,5 +1,6 @@
 import TimeboxList from "./TimeboxList";
 import EditableTimebox from "./EditableTimebox";
+import ErrorBoundary from "./ErrorBoundary";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { CssBaseline, Container } from "@material-ui/core";
 
@@ -26,10 +27,12 @@ function App() {
         <Container>
           <h1>Kurs reacta</h1>
           <hr />
-          <div className="App">
-            <TimeboxList />
-            <EditableTimebox />
-          </div>
+          <ErrorBoundary message="Coś nie działa w aplikacji">
+            <div className="App">
+              <TimeboxList />
+              <EditableTimebox />
+            </div>
+          </ErrorBoundary>
         </Container>
       </CssBaseline>
     </ThemeProvider>

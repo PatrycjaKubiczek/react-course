@@ -2,6 +2,7 @@ import React from "react";
 import uuid from "uuid";
 import TimeboxCreator from "./TimeboxCreator";
 import Timebox from "./Timebox";
+import ErrorBoundary from "./ErrorBoundary";
 
 class TimeboxList extends React.Component {
   state = {
@@ -26,6 +27,7 @@ class TimeboxList extends React.Component {
       },
     ],
   };
+ 
   addTimebox = (timebox) => {
     this.setState((prevState) => {
       const timeboxes = [timebox, ...prevState.timeboxes];
@@ -75,19 +77,21 @@ class TimeboxList extends React.Component {
       <>
         <TimeboxCreator onCreate={this.handleCreate} />
         <h2>Obecna lista zadań:</h2>
+        <ErrorBoundary message="Błąd">
         {this.state.timeboxes.map((timebox, index) => (
-          <Timebox
-            key={timebox.id}
-            index={index}
-            id={timebox.id}
-            title={timebox.title}
-            totalTimeInMinutes={timebox.totalTimeInMinutes}
-            onDelete={() => this.removeTimebox(index)}
-            onEdit={() => this.handleEdit(index)}
-            onSave={this.handleSave}
-            isEdited={timebox.isEdited}
-          />
-        ))}
+              <Timebox
+                key={timebox.id}
+                index={index}
+                id={timebox.id}
+                title={timebox.title}
+                totalTimeInMinutes={timebox.totalTimeInMinutes}
+                onDelete={() => this.removeTimebox(index)}
+                onEdit={() => this.handleEdit(index)}
+                onSave={this.handleSave}
+                isEdited={timebox.isEdited}
+              />
+            ))}
+            </ErrorBoundary>
       </>
     );
   }
