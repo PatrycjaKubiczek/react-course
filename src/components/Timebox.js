@@ -1,14 +1,11 @@
 import React from "react";
-import { Button, TextField } from "@material-ui/core";
+import { Grid, Button } from "@material-ui/core";
 
 class Timebox extends React.Component {
   state = {
     updatedTitle: this.props.title,
     updatedTotalTimeInMinutes: this.props.totalTimeInMinutes,
   };
-  constructor(props) {
-    super(props);
-  }
   handleTitleChange = (e) => {
     this.setState({ updatedTitle: e.target.value });
   };
@@ -30,10 +27,7 @@ class Timebox extends React.Component {
       totalTimeInMinutes,
       onDelete,
       onEdit,
-      onSave,
-      isEdited,
-      index,
-      id,
+      isEdited
     } = this.props;
     return (
       <div className="Timebox">
@@ -58,20 +52,21 @@ class Timebox extends React.Component {
             />
           </form>
         )}
-
-        {!isEdited && (
-          <Button onClick={onEdit} variant="outlined">
-            edytuj
+        <Grid container display="flex" justify="flex-end">
+          {!isEdited && (
+            <Button onClick={onEdit} variant="outlined">
+              edytuj
+            </Button>
+          )}
+          {isEdited && (
+            <Button onClick={this.handleSubmit} variant="outlined">
+              zapisz
+            </Button>
+          )}
+          <Button onClick={onDelete} variant="outlined">
+            usuń
           </Button>
-        )}
-        {isEdited && (
-          <Button onClick={this.handleSubmit} variant="outlined">
-            zapisz
-          </Button>
-        )}
-        <Button onClick={onDelete} variant="outlined">
-          usuń
-        </Button>
+        </Grid>
       </div>
     );
   }

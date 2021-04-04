@@ -33,9 +33,11 @@ class TimeboxList extends React.Component {
     });
   };
   removeTimebox = (indexToRemove) => {
+    // console.log(indexToRemove);
+    // console.log(this.state);
     this.setState((prevState) => {
       const timeboxes = prevState.timeboxes.filter(
-        (timebox, index) => !index == indexToRemove
+        (timebox, index) => index !== indexToRemove
       );
       return { timeboxes };
     });
