@@ -1,4 +1,6 @@
-function Clock({ className = "", minutes = 20, seconds = 48 }) {
+import PropTypes from "prop-types";
+
+function Clock({ className, minutes, seconds}) {
   if (seconds === 0) {
     seconds = seconds + "0";
   }
@@ -8,5 +10,15 @@ function Clock({ className = "", minutes = 20, seconds = 48 }) {
     </h3>
   );
 }
+
+Clock.defaultProps = {
+  className: ""
+}
+
+Clock.propTypes = {
+  className: PropTypes.string.isRequired,
+  minutes: PropTypes.number.isRequired,
+  seconds: PropTypes.number.isRequired,
+};
 
 export default Clock;
