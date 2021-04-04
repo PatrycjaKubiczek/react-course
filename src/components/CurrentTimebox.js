@@ -1,6 +1,6 @@
 import React from "react";
 import Clock from "./Clock";
-import ProgressBar from "./Clock";
+import ProgressBar from "./ProgressBar";
 
 class CurrentTimebox extends React.Component {
   constructor(props) {

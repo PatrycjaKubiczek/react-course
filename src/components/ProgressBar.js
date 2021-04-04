@@ -1,7 +1,7 @@
 function ProgressBar({ className = "", percent = 44 }) {
   return (
-    <div className={"ProgressBar " + className}>
-      <div style={{ width: `${percent}%` }}></div>
+    <div className={"progress " + className}>
+      <div className={"progress__bar"} style={{ width: `${percent}%` }}></div>
     </div>
   );
 }
