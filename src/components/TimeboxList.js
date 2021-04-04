@@ -3,6 +3,7 @@ import uuid from "uuid";
 import TimeboxCreator from "./TimeboxCreator";
 import Timebox from "./Timebox";
 import ErrorBoundary from "./ErrorBoundary";
+import { Paper } from "@material-ui/core";
 
 class TimeboxList extends React.Component {
   state = {
@@ -27,7 +28,7 @@ class TimeboxList extends React.Component {
       },
     ],
   };
- 
+
   addTimebox = (timebox) => {
     this.setState((prevState) => {
       const timeboxes = [timebox, ...prevState.timeboxes];
@@ -78,9 +79,9 @@ class TimeboxList extends React.Component {
         <TimeboxCreator onCreate={this.handleCreate} />
         <h2>Obecna lista zadań:</h2>
         <ErrorBoundary message="Błąd">
-        {this.state.timeboxes.map((timebox, index) => (
+          {this.state.timeboxes.map((timebox, index) => (
+            <Paper key={timebox.id}>
               <Timebox
-                key={timebox.id}
                 index={index}
                 id={timebox.id}
                 title={timebox.title}
@@ -90,8 +91,9 @@ class TimeboxList extends React.Component {
                 onSave={this.handleSave}
                 isEdited={timebox.isEdited}
               />
-            ))}
-            </ErrorBoundary>
+            </Paper>
+          ))}
+        </ErrorBoundary>
       </>
     );
   }

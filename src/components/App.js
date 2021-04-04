@@ -24,8 +24,8 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline>
-        <Container>
-          <h1>Kurs reacta</h1>
+        <Container maxWidth="sm">
+          <h1 style={{textAlign: "center"}}>Kurs reacta - pomodoro 🍅</h1>
           <hr />
           <ErrorBoundary message="Coś nie działa w aplikacji">
             <div className="App">

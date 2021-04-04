@@ -1,5 +1,6 @@
 import React from "react";
-import { Grid, Button } from "@material-ui/core";
+import { Grid, Button, TextField } from "@material-ui/core";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 class Timebox extends React.Component {
   state = {
@@ -38,13 +39,13 @@ class Timebox extends React.Component {
         )}
         {isEdited && (
           <form>
-            <input
+            <TextField
               className="updateInput"
               type="text"
               value={this.state.updatedTitle}
               onChange={this.handleTitleChange}
             />
-            <input
+            <TextField
               className="updateInput"
               type="number"
               value={this.state.updatedTotalTimeInMinutes}
@@ -63,7 +64,11 @@ class Timebox extends React.Component {
               zapisz
             </Button>
           )}
-          <Button onClick={onDelete} variant="outlined">
+          <Button
+            onClick={onDelete}
+            variant="outlined"
+            startIcon={<DeleteIcon />}
+          >
             usuń
           </Button>
         </Grid>
