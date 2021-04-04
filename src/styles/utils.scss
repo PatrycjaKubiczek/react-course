@@ -1,0 +1,10 @@
+.inactive {
+  filter: blur(2px) grayscale(1);
+}
+.updateInput {
+  min-width: 40%;
+  display: inline-block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-left: 10px;
+}
