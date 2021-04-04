@@ -1,4 +1,6 @@
 import React from "react";
+import { Button, TextField } from "@material-ui/core";
+
 class Timebox extends React.Component {
   state = {
     updatedTitle: this.props.title,
@@ -8,13 +10,12 @@ class Timebox extends React.Component {
     super(props);
   }
   handleTitleChange = (e) => {
-    this.setState({ updateTitle: e.target.value });
+    this.setState({ updatedTitle: e.target.value });
   };
   handleMinutesChange = (e) => {
     this.setState({ updatedTotalTimeInMinutes: e.target.value });
   };
   handleSubmit = (e) => {
-    console.log(this.props.timebox);
     this.props.onSave(this.props.index, {
       ...this.props.timebox,
       title: this.state.updatedTitle,
@@ -58,9 +59,19 @@ class Timebox extends React.Component {
           </form>
         )}
 
-        {!isEdited && <button onClick={onEdit}>edytuj</button>}
-        {isEdited && <button onClick={this.handleSubmit}>zapisz</button>}
-        <button onClick={onDelete}>usuń</button>
+        {!isEdited && (
+          <Button onClick={onEdit} variant="outlined">
+            edytuj
+          </Button>
+        )}
+        {isEdited && (
+          <Button onClick={this.handleSubmit} variant="outlined">
+            zapisz
+          </Button>
+        )}
+        <Button onClick={onDelete} variant="outlined">
+          usuń
+        </Button>
       </div>
     );
   }

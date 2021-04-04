@@ -23,6 +23,8 @@ class EditableTimebox extends React.Component {
     const { title, totalTimeInMinutes, isEditable } = this.state;
     return (
       <>
+      <hr />
+        <h2>Obecne zadanie:</h2>
         <TimeboxEditor
           title={title}
           totalTimeInMinutes={totalTimeInMinutes}

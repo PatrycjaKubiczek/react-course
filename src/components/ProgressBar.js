@@ -6,7 +6,7 @@ function ProgressBar({ className = "", percent = 44, big = false, color = null }
     className,
     {
       "progress--big": big,
-      "progress--big": color === "red"
+      "progress--color-red": color === "red"
     }
   )
   return (

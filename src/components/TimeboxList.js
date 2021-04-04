@@ -72,6 +72,7 @@ class TimeboxList extends React.Component {
     return (
       <>
         <TimeboxCreator onCreate={this.handleCreate} />
+        <h2>Obecna lista zadań:</h2>
         {this.state.timeboxes.map((timebox, index) => (
           <Timebox
             key={timebox.id}

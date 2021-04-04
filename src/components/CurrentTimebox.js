@@ -1,6 +1,7 @@
 import React from "react";
 import Clock from "./Clock";
 import ProgressBar from "./ProgressBar";
+import { Button, Grid } from "@material-ui/core";
 
 class CurrentTimebox extends React.Component {
   constructor(props) {
@@ -77,8 +78,20 @@ class CurrentTimebox extends React.Component {
     const secondsLeft = Math.floor(timeLeftInSeconds % 60);
     const progressPercent = (elapsedTimeInSeconds / totalTimeInSeconds) * 100;
     return (
-      <div className={`CurrentTimebox ${isEditable ? "inactive" : ""}`}>
-        <h2>{title}</h2>
+      <div className={` ${isEditable ? "inactive" : ""}`}>
+        <h2>Licznik pomodoro</h2>
+        <Grid container display="flex" justify="center">
+          <h3>Zadanie: {title}</h3>
+          <Button
+            onClick={onEdit}
+            disabled={isEditable}
+            variant="outlined"
+            size="small"
+          >
+            Edytuj
+          </Button>
+        </Grid>
+
         <Clock
           minutes={minutesLeft}
           seconds={secondsLeft}
@@ -90,18 +103,27 @@ class CurrentTimebox extends React.Component {
           color="red"
           big
         />
-        <button onClick={onEdit} disabled={isEditable}>
-          Edytuj
-        </button>
-        <button onClick={this.handleStart} disabled={isRunning}>
+        <Button
+          onClick={this.handleStart}
+          disabled={isEditable || isRunning}
+          variant="outlined"
+        >
           Start
-        </button>
-        <button onClick={this.handleStop} disabled={!isRunning}>
+        </Button>
+        <Button
+          onClick={this.handleStop}
+          disabled={isEditable || !isRunning}
+          variant="outlined"
+        >
           Stop
-        </button>
-        <button onClick={this.togglePause} disabled={!isRunning}>
+        </Button>
+        <Button
+          onClick={this.togglePause}
+          disabled={isEditable || !isRunning}
+          variant="outlined"
+        >
           {isPaused ? "Wzów" : "Pauzuj"}
-        </button>
+        </Button>
         <p>Liczba przerw: {pausesCount}</p>
       </div>
     );
