@@ -1,5 +1,5 @@
 .progress {
-  border: 1px solid orangered;
+  border: 1px solid black;
   border-radius: 5px;
   height: 25px;
   padding: 5px;
@@ -7,5 +7,11 @@
   &__bar {
     height: 100%;
     background-color: orangered;
+  }
+  &--big {
+    height: 35px;
+  }
+  &--color-red {
+    color: red;
   }
 }
