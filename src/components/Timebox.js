@@ -6,6 +6,7 @@ class Timebox extends React.Component {
   state = {
     updatedTitle: this.props.title,
     updatedTotalTimeInMinutes: this.props.totalTimeInMinutes,
+    id: this.props.id
   };
   handleTitleChange = (e) => {
     this.setState({ updatedTitle: e.target.value });
@@ -19,6 +20,7 @@ class Timebox extends React.Component {
       title: this.state.updatedTitle,
       totalTimeInMinutes: this.state.updatedTotalTimeInMinutes,
       isEdited: false,
+      id: this.state.id, // TODO PK
     });
   };
 

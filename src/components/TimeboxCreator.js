@@ -17,8 +17,8 @@ class TimeboxCreator extends React.Component {
       totalTimeInMinutes: this.totalTimeInMinutesInput.current.value,
       isEdited: false,
     });
-    this.titleInput = "";
-    this.totalTimeInMinutesInput = "";
+    this.titleInput.current.value = "";
+     this.totalTimeInMinutesInput.current.value = "";
   };
   render() {
     return (

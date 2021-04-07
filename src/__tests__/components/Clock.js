@@ -30,9 +30,6 @@ describe("<Clock/>", () => {
     });
     it("renders properly", () => {
       expect(clockRenderer.toJSON().type).toMatchSnapshot();
-    //   expect(clockRenderer.toJSON().type).toEqual("h3");
-    //   expect(clockRenderer.toJSON().props).toMatchObject({"className": expect.stringMatching("Clock ")});
-    //   expect(clockRenderer.toJSON().children).toEqual(expect.arrayContaining([10, 20]));
     });
     xit("renders an h3 element", () => {
       expect(root.childNodes[0].nodeName).toEqual("H3");
