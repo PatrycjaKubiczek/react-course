@@ -12,7 +12,6 @@ class TimeboxCreator extends React.Component {
     console.log(this.titleInput.current.value);
     e.preventDefault();
     this.props.onCreate({
-      id: uuid.v4(),
       title: this.titleInput.current.value,
       totalTimeInMinutes: this.totalTimeInMinutesInput.current.value,
       isEdited: false,
