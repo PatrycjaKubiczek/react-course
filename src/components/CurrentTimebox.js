@@ -14,16 +14,28 @@ class CurrentTimebox extends React.Component {
     };
     this.intervalId = null;
   }
+  componentWillUnmount() {
+    this.stopTimer();
+  }
 
   handleStart = (event) => {
     this.setState({
       isRunning: true,
     });
     this.startTimer();
-  }
+  };
 
+  handleStop() {
+    this.setState({
+      isRunning: false,
+      isPaused: false,
+      pausesCount: 0,
+      elapsedTimeInSeconds: 0,
+    });
+    this.stopTimer();
+  }
   startTimer() {
-    if(this.intervalId === null){
+    if (this.intervalId === null) {
       this.intervalId = window.setInterval(() => {
         this.setState((prevState) => ({
           elapsedTimeInSeconds: prevState.elapsedTimeInSeconds + 0.1,
@@ -36,20 +48,9 @@ class CurrentTimebox extends React.Component {
     this.intervalId = null;
   }
 
-  handleStop = (event) => {
-    this.setState({
-      isPaused: false,
-      isRunning: false,
-      pausesCount: 0,
-      elapsedTimeInSeconds: 0,
-    });
-    this.stopTimer();
-  }
-
-  togglePause = () => {
+  togglePause() {
     this.setState(function (prevState) {
       const isPaused = !prevState.isPaused;
-
       if (isPaused) {
         this.stopTimer();
       } else {
@@ -74,11 +75,11 @@ class CurrentTimebox extends React.Component {
     const { title, totalTimeInMinutes, isEditable, onEdit } = this.props;
     const totalTimeInSeconds = totalTimeInMinutes * 60;
     const timeLeftInSeconds = totalTimeInSeconds - elapsedTimeInSeconds;
-    
-    const [minutesLeft,
-      secondsLeft] = getMinutesAndSecondsFromDurationInSeconds(
-        timeLeftInSeconds
-      );
+
+    const [
+      minutesLeft,
+      secondsLeft,
+    ] = getMinutesAndSecondsFromDurationInSeconds(timeLeftInSeconds);
     const progressPercent = (elapsedTimeInSeconds / totalTimeInSeconds) * 100;
     return (
       <div className={` ${isEditable ? "inactive" : ""}`}>

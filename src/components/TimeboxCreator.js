@@ -1,5 +1,4 @@
 import React from "react";
-import uuid from "uuid";
 import { Button, TextField, Paper } from "@material-ui/core";
 
 class TimeboxCreator extends React.Component {
@@ -23,44 +22,23 @@ class TimeboxCreator extends React.Component {
     return (
       <>
         <h2>Dodaj nowe zadanie</h2>
-        {/* <form className="CurrentTimebox"> 
-      //   <TextField
-      //     inputRef={this.titleInput}
-      //     label="Co robisz?"
-      //     variant="outlined"
-      //   />
-      //   <TextField
-      //     inputRef={this.totalTimeInMinutesInput}
-      //     label="Ile minut?"
-      //     type="number"
-      //     variant="outlined"
-      //   />
-      // <Button variant="outlined" onClick={this.handleSubmit}>
-      //     dodaj timebox
-      //   </Button>
-      */}
-        <Paper>
-          <form className="CurrentTimebox" onSubmit={this.handleSubmit}>
-            <label>
-              Co robisz?
-              <input ref={this.titleInput} type="text" required />
-            </label>
-            <br />
-            <label>
-              Ile minut?
-              <input
-                ref={this.totalTimeInMinutesInput}
-                type="number"
-                required
-              />
-            </label>
-            <br />
-            <button>dodaj timebox</button>
-            {/* <Button variant="contained" onClick={this.handleSubmit}>
-              dodaj timebox
-            </Button> */}
-          </form>
-        </Paper>
+        <form className="CurrentTimebox"> 
+         <TextField
+          inputRef={this.titleInput}
+          label="Co robisz?"
+          variant="outlined"
+        />
+        <TextField
+          inputRef={this.totalTimeInMinutesInput}
+          label="Ile minut?"
+          type="number"
+          variant="outlined"
+        />
+      <Button variant="outlined" onClick={this.handleSubmit}>
+          dodaj timebox
+        </Button>
+     </form>
+       
       </>
     );
   }

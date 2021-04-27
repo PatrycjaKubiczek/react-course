@@ -11,7 +11,7 @@ class EditableTimebox extends React.Component {
     errorMinutes: false
   };
   componentWillUnmount() {
-    this.stopTimer();
+    // this.stopTimer();
   }
   handleTitleChange = (event) => {
     this.setState({ title: event.target.value });
