@@ -3,6 +3,7 @@ import React from "react";
 import Timebox from "./Timebox";
 import TimeboxCreator from "./TimeboxCreator";
 import TimeboxesAPI from "../api/AxiosTimeboxesAPI";
+import AuthenticationContext from "../contexts/AuthenticationContext";
 
 class TimeboxList extends React.Component {
   state = {
@@ -12,14 +13,14 @@ class TimeboxList extends React.Component {
   };
 
   componentDidMount() {
-    TimeboxesAPI.getAllTimeboxes(this.props.accessToken)
+    TimeboxesAPI.getAllTimeboxes(this.context.accessToken)
       .then((timeboxes) => this.setState({ timeboxes }))
       .catch((error) => this.setState({ error }))
       .finally(() => this.setState({ loading: false }));
   }
 
   addTimebox = (timebox) => {
-    TimeboxesAPI.addTimebox(timebox, this.props.accessToken).then(
+    TimeboxesAPI.addTimebox(timebox, this.context.accessToken).then(
       (addedTimebox) =>
         this.setState((prevState) => {
           const timeboxes = [...prevState.timeboxes, addedTimebox];
@@ -30,7 +31,7 @@ class TimeboxList extends React.Component {
   removeTimebox = (indexToRemove) => {
     TimeboxesAPI.removeTimebox(
       this.state.timeboxes[indexToRemove],
-      this.props.accessToken
+      this.context.accessToken
     ).then(() =>
       this.setState((prevState) => {
         const timeboxes = prevState.timeboxes.filter(
@@ -41,7 +42,7 @@ class TimeboxList extends React.Component {
     );
   };
   updateTimebox = (indexToUpdate, timeboxToUpdate, ) => {
-    TimeboxesAPI.replaceTimebox(timeboxToUpdate, this.props.accessToken).then(
+    TimeboxesAPI.replaceTimebox(timeboxToUpdate, this.context.accessToken).then(
       (updatedTimebox) =>
         this.setState((prevState) => {
           const timeboxes = prevState.timeboxes.map((timebox, index) =>
@@ -90,5 +91,7 @@ class TimeboxList extends React.Component {
     );
   }
 }
+
+TimeboxList.contextType = AuthenticationContext;
 
 export default TimeboxList;

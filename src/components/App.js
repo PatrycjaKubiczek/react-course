@@ -1,13 +1,14 @@
 import React from "react";
-import TimeboxList from "./TimeboxList";
-import EditableTimebox from "./EditableTimebox";
 import ErrorBoundary from "./ErrorBoundary";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { CssBaseline, Container } from "@material-ui/core";
 import LoginForm from "./LoginForm";
 import AuthenticationAPI from "../api/FetchAuthenticationAPI";
-import jwt from "jsonwebtoken";
 
+import AuthenticationContext from "../contexts/AuthenticationContext";
+import Quote from "./Quote";
+
+const AuthenticatedApp = React.lazy(() => import("./AuthenticatedApp"));
 const theme = createMuiTheme({
   overrides: {
     MuiButton: {
@@ -32,10 +33,6 @@ class App extends React.Component {
 
   isUserLoggedIn() {
     return !!this.state.accessToken;
-  }
-  getUserEmail() {
-    const decodedTime = jwt.decode(this.state.accessToken);
-    return decodedTime.email;
   }
   handleLogout = () => {
     this.setState({
@@ -65,21 +62,16 @@ class App extends React.Component {
             <ErrorBoundary message="Coś nie działa w aplikacji">
               {this.isUserLoggedIn() ? (
                 <>
-                  <header className="header">
-                    Witaj, {this.getUserEmail()}!
-                    <a onClick={this.handleLogout} href="#">
-                      wyloguj
-                    </a>
-                  </header>
-                  <h1 style={{ textAlign: "center" }}>
-                    Kurs reacta - pomodoro 🍅
-                  </h1>
-                  <hr />
-
-                  <div className="App">
-                    <TimeboxList accessToken={this.state.accessToken}/>
-                    <EditableTimebox />
-                  </div>
+                  <AuthenticationContext.Provider
+                    value={{ accessToken: this.state.accessToken }}
+                  >
+                    {
+                      <React.Suspense fallback={"...Loading"}>
+                        <AuthenticatedApp onLogout={this.handleLogout} />
+                      </React.Suspense>
+                    }
+                  </AuthenticationContext.Provider>
+                  <Quote />
                 </>
               ) : (
                 <LoginForm onLoginAttempt={this.handleLoginAttempt} />
