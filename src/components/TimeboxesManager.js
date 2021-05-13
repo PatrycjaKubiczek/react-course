@@ -12,7 +12,6 @@ class TimeboxesManager extends React.Component {
     timeboxes: [],
     loading: true,
     error: null,
-    editIndex: null,
   };
 
   componentDidMount() {
@@ -35,8 +34,7 @@ class TimeboxesManager extends React.Component {
     TimeboxesAPI.removeTimebox(
       this.state.timeboxes[indexToRemove],
       this.context.accessToken
-    ).then(
-      () =>
+    ).then(() =>
       this.setState((prevState) => {
         const timeboxes = prevState.timeboxes.filter(
           (timebox, index) => index !== indexToRemove
@@ -45,28 +43,23 @@ class TimeboxesManager extends React.Component {
       })
     );
   };
-
-
   updateTimebox = (indexToUpdate, timeboxToUpdate) => {
-    console.log({ indexToUpdate, timeboxToUpdate });
+   
     TimeboxesAPI.replaceTimebox(timeboxToUpdate, this.context.accessToken).then(
       (updatedTimebox) =>
         this.setState((prevState) => {
           const timeboxes = prevState.timeboxes.map((timebox, index) =>
-            index === indexToUpdate ? updatedTimebox : timebox
+         {
+            console.log({updatedTimebox, timebox});
+            return index === indexToUpdate ? updatedTimebox : timebox
+          
+          }
           );
           return { timeboxes };
         })
     );
   };
-
   handleEdit = (indexToUpdate, timeboxToUpdate) => {
-    console.log('timeboxToUpdate');
-    TimeboxesAPI.replaceTimebox(timeboxToUpdate, this.context.accessToken).then(
-      (timeboxToUpdate) => {
-        console.log(timeboxToUpdate);
-      }
-    );
     TimeboxesAPI.replaceTimebox(timeboxToUpdate, this.context.accessToken).then(
       (updatedTimebox) =>
         this.setState((prevState) => {
@@ -80,7 +73,6 @@ class TimeboxesManager extends React.Component {
         })
     );
   };
-
   handleCreate = (createdTimebox) => {
     try {
       this.addTimebox(createdTimebox);
@@ -88,7 +80,7 @@ class TimeboxesManager extends React.Component {
       console.log("Jest błąd przy tworzeniu timeboxa:", error);
     }
   };
-  renderTimebox(timebox, index) {
+  renderTimebox = (timebox, index) => {
     return (
       <Timebox
         id={timebox.id}
@@ -99,21 +91,20 @@ class TimeboxesManager extends React.Component {
         onSave={() => this.updateTimebox(index, timebox)}
         isEdited={timebox.isEdited}
         onEdit={() =>
-          this.updateTimebox(index, { ...timebox, title: "Updated timebox" })
+          this.handleEdit(index, timebox)
         }
       />
     );
+  };
+  renderReadOnlyTimebox = (timebox, index) => {
+    return (
+      <ReadOnlyTimebox
+        key={timebox.id}
+        title={timebox.title}
+        totalTimeInMinutes={timebox.totalTimeInMinutes}
+      />
+    );
   }
-
-  renderReadOnlyTimebox(timebox, index) {
-    return <ReadOnlyTimebox
-      id={timebox.id}
-      key={timebox.id}
-      title={timebox.title}
-      totalTimeInMinutes={timebox.totalTimeInMinutes}
-    />;
-  }
-
   render() {
     return (
       <>
@@ -122,7 +113,6 @@ class TimeboxesManager extends React.Component {
         {this.state.error ? "Nie udało się załadować :(" : null}
         <TimeboxesList
           timeboxes={this.state.timeboxes}
-          renderTimebox={this.renderTimebox}
         />
       </>
     );

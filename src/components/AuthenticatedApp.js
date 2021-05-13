@@ -1,5 +1,5 @@
 import Header from "./Header";
-import TimeboxList from "./TimeboxList";
+import TimeboxesManager from "./TimeboxesManager";
 import EditableTimebox from "./EditableTimebox";
 
 function AuthenticatedApp({ onLogout }) {
@@ -7,7 +7,7 @@ function AuthenticatedApp({ onLogout }) {
     <>
       <Header onLogout={onLogout} />
       <div className="App">
-        <TimeboxList />
+        <TimeboxesManager />
         <EditableTimebox />
       </div>
     </>

@@ -1,11 +1,12 @@
 import React from "react";
-import ErrorBoundary from "./ErrorBoundary";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { CssBaseline, Container } from "@material-ui/core";
+
+import ErrorBoundary from "./ErrorBoundary";
 import LoginForm from "./LoginForm";
+import AuthenticationContext from "../contexts/AuthenticationContext";
 import AuthenticationAPI from "../api/FetchAuthenticationAPI";
 
-import AuthenticationContext from "../contexts/AuthenticationContext";
 import Quote from "./Quote";
 
 const AuthenticatedApp = React.lazy(() => import("./AuthenticatedApp"));
@@ -28,18 +29,13 @@ const theme = createMuiTheme({
 class App extends React.Component {
   state = {
     accessToken: null,
-    previousLoginAttemptFailed: false
+    previousLoginAttemptFailed: false,
   };
 
   isUserLoggedIn() {
     return !!this.state.accessToken;
   }
-  handleLogout = () => {
-    this.setState({
-      accessToken: null,
-      previousLoginAttemptFailed: false,
-    });
-  };
+
   handleLoginAttempt = (credentials) => {
     AuthenticationAPI.login(credentials)
       .then(({ accessToken }) => {
@@ -53,6 +49,13 @@ class App extends React.Component {
           previousLoginAttemptFailed: true,
         });
       });
+  };
+
+  handleLogout = () => {
+    this.setState({
+      accessToken: null,
+      previousLoginAttemptFailed: false,
+    });
   };
   render() {
     return (

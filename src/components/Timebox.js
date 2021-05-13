@@ -6,7 +6,7 @@ class Timebox extends React.Component {
   state = {
     updatedTitle: this.props.title,
     updatedTotalTimeInMinutes: this.props.totalTimeInMinutes,
-    id: this.props.id
+    id: this.props.id,
   };
   handleTitleChange = (e) => {
     this.setState({ updatedTitle: e.target.value });
@@ -14,24 +14,22 @@ class Timebox extends React.Component {
   handleMinutesChange = (e) => {
     this.setState({ updatedTotalTimeInMinutes: e.target.value });
   };
-  handleSubmit = (e) => {
-    this.props.onSave(this.props.index, {
-      ...this.props.timebox,
+  handleSubmit = () => {
+    console.log('yy')
+     console.log(this.props);
+    this.props.onSave(this.props.id, {
       title: this.state.updatedTitle,
       totalTimeInMinutes: this.state.updatedTotalTimeInMinutes,
       isEdited: false,
       id: this.state.id, // TODO PK
     });
+
+   
   };
 
   render() {
-    const {
-      title,
-      totalTimeInMinutes,
-      onDelete,
-      onEdit,
-      isEdited
-    } = this.props;
+    const { title, totalTimeInMinutes, onDelete, onEdit, isEdited } =
+      this.props;
     return (
       <div className="Timebox">
         {!isEdited && (
@@ -41,6 +39,7 @@ class Timebox extends React.Component {
         )}
         {isEdited && (
           <form>
+
             <TextField
               className="updateInput"
               type="text"
@@ -57,22 +56,29 @@ class Timebox extends React.Component {
         )}
         <Grid container display="flex" justify="flex-end">
           {!isEdited && (
-            <Button onClick={onEdit} variant="outlined">
-              edytuj
-            </Button>
+            <>
+              <Button onClick={onEdit} variant="outlined">
+                edytuj
+              </Button>
+              <Button
+                onClick={onDelete}
+                variant="outlined"
+                startIcon={<DeleteIcon />}
+              >
+                usuń
+              </Button>
+            </>
           )}
           {isEdited && (
-            <Button onClick={this.handleSubmit} variant="outlined">
-              zapisz
-            </Button>
+            <>
+              <Button onClick={this.handleSubmit} variant="outlined">
+                zapisz
+              </Button>
+              <Button onClick={this.handleCancel} variant="outlined">
+                anuluj
+              </Button>
+            </>
           )}
-          <Button
-            onClick={onDelete}
-            variant="outlined"
-            startIcon={<DeleteIcon />}
-          >
-            usuń
-          </Button>
         </Grid>
       </div>
     );
